@@ -15,9 +15,9 @@ COPY src ./src
 RUN mvn package
 
 FROM debian:bookworm-slim
-RUN useradd -m ives
-USER ives
-WORKDIR /home/ives
-COPY --from=build --chown=ives:ives /build/runtime runtime
-COPY --from=build --chown=ives:ives /build/target/*.jar ./builder-server.jar
-ENTRYPOINT runtime/bin/java -jar imq-server.jar & wait
+RUN useradd -m kolektiv
+USER kolektiv
+WORKDIR /home/kolektiv
+COPY --from=build --chown=kolektiv:kolektiv /build/runtime runtime
+COPY --from=build --chown=kolektiv:kolektiv /build/target/*.jar ./builder-server.jar
+ENTRYPOINT runtime/bin/java -jar builder-server.jar & wait
